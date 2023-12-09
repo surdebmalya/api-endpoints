@@ -54,13 +54,27 @@ def add_new_book():
 def update_book_details(id):
     try:
         book = Book.query.get(id)
+
+        # Handling errors, such as updating a non-existent book
         if book is None:
             return jsonify({'error': 'Book not found'}), 404
 
         data = request.get_json()
-        book.title = data.get('title', book.title)
-        book.author = data.get('author', book.author)
-        book.published_date = data.get('published_date', book.published_date)
+
+        # Proper validation of the request payload
+        try:
+            temp = data['id']
+            temp = data['title']
+            temp = data['author']
+            temp = data['published_date']
+        except:
+            return jsonify({'error': 'Payload error. In the payload you must have "id", "title", "title", "published_date"'}), 400
+
+        # Updating the book details in the database
+        book.title = data.get('title', data['id'])
+        book.title = data.get('title', data['title'])
+        book.author = data.get('author', data['author'])
+        book.published_date = data.get('published_date', data['published_date'])
 
         db.session.commit()
         return jsonify({'message': 'Book updated successfully'})
