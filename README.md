@@ -19,6 +19,12 @@ project
     |- README.md
     |- images
         |- database_image.png
+        |- new_book_added_1_postman.png
+        |- new_book_added_2_postman.png
+        |- retrieve_all_books_postman.png
+        |- seed_postman.png
+        |- update_1_postman.png
+        |- update_2_postman.png
 ```
 
 ### Database structure
@@ -69,4 +75,70 @@ To seed the database with mock data, I have added a separate route in the `app.p
 
 To to seed the database with mock data just send a request to `http://127.0.0.1:5000/seed`
 
-### 
+### Endpoint Descriptions
+**Retrieve All Books**
+
+- Endpoint: `GET /api/books`
+- Response format: 
+    ```json
+    {
+        "books": [
+            {"id": "B1", "title": "Book 1", "author": "Author 1", "published_date": "2023-01-01"},
+            {"id": "B2", "title": "Book 2", "author": "Author 2", "published_date": "2023-02-01"},
+            {"id": "B3", "title": "Book 3", "author": "Author 3", "published_date": "2023-03-01"},
+        ]
+    }
+    ```
+
+**Add a New Book**
+
+- Endpoint: `POST /api/books`
+- Request format:
+    ```json
+    {
+        "id": "B4",
+        "author": "Author 4",
+        "published_date": "2023-01-01",
+        "title": "Book 4"
+    }
+    ```
+- Response format:
+    ```json
+    {
+        "message": "Book added successfully"
+    }
+    ```
+
+**Update Book Details**
+
+- Endpoint: `PUT /api/books/{id}`
+- Request format:
+    You have to give the information of atleast one of the following keys: `title`, `autho`, `published_date`
+    ```json
+        {
+            "title": "Updated Book Title",
+            "author": "Updated Author",
+            "published_date": "Updated Publishing Date"
+        }
+    ```
+- Response format:
+    ```json
+    {
+        "message": "Book updated successfully"
+    }
+    ```
+
+### Testing on Postman
+**Seeding Data**
+![Seeding Data](images/seed_postman.png)
+
+**Retrieve All Books**
+![Retrieve All Books](images/retrieve_all_books_postman.png)
+
+**Adding New Book**
+![Adding New Book 1](images/new_book_added_1_postman.png)
+![Adding New Book 2](images/new_book_added_2_postman.png)
+
+**Updating Existing**
+![Updating Existing 1](images/update_1_postman.png)
+![Updating Existing 2](images/update_2_postman.png)
