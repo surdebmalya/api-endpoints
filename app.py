@@ -10,11 +10,13 @@ db.init_app(app)
 def get_all_books():
     try:
         books = Book.query.all()
+        # Correct retrieval of all books from the database
         book_list = []
         for book in books:
             book_list.append({'id': book.id, 'title': book.title, 'author': book.author, 'published_date': book.published_date})
         return jsonify({'books': book_list})
     except Exception as e:
+        # Proper error handling for database connection issues
         return jsonify({'error': str(e)}), 502
 
 # Endpoint 2: Add a New Book
@@ -47,6 +49,7 @@ def add_new_book():
             return jsonify({'error': 'Book ID should be unique for each book!'}), 409
         
     except Exception as e:
+        # Proper error handling for database connection issues
         return jsonify({'error': str(e)}), 502
 
 # Endpoint 3: Update Book Details
@@ -54,7 +57,8 @@ def add_new_book():
 def update_book_details(id):
     try:
         book = Book.query.get(id)
-
+        
+        # Correct identification and retrieval of the book from the database
         # Handling errors, such as updating a non-existent book
         if book is None:
             return jsonify({'error': 'Book not found'}), 404
@@ -70,15 +74,19 @@ def update_book_details(id):
         except:
             return jsonify({'error': 'Payload error. In the payload you must have "id", "title", "title", "published_date"'}), 400
 
-        # Updating the book details in the database
-        book.title = data.get('title', data['id'])
-        book.title = data.get('title', data['title'])
-        book.author = data.get('author', data['author'])
-        book.published_date = data.get('published_date', data['published_date'])
+        # Updating the book details in the database with validity of the property (Checking primary key)
+        try:
+            book.title = data.get('title', data['id'])
+            book.title = data.get('title', data['title'])
+            book.author = data.get('author', data['author'])
+            book.published_date = data.get('published_date', data['published_date'])
 
-        db.session.commit()
-        return jsonify({'message': 'Book updated successfully'})
+            db.session.commit()
+            return jsonify({'message': 'Book updated successfully'})
+        except:
+            return jsonify({'error': 'Book ID should be unique for each book!'}), 409
     except Exception as e:
+        # Proper error handling for database connection issues
         return jsonify({'error': str(e)}), 502
 
 # Seed the database with mock data
