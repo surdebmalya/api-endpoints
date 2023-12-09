@@ -93,13 +93,11 @@ def update_book_details(id):
 @app.route('/seed', methods=['GET'])
 def seed_database():
     try:
-        # books_data = [
-        #     {'id': 'book1', 'title': 'Book 1', 'author': 'Author 1', 'published_date': '2023-01-01'},
-        #     {'id': 'book2', 'title': 'Book 2', 'author': 'Author 2', 'published_date': '2023-02-01'},
-        #     {'id': 'book3', 'title': 'Book 3', 'author': 'Author 3', 'published_date': '2023-03-01'},
-        # ]
-
-        books_data = [{'id': 'book4', 'title': 'Book 3', 'author': 'Author 4', 'published_date': '2023-03-01'}]
+        books_data = [
+            {'id': 'B1', 'title': 'Book 1', 'author': 'Author 1', 'published_date': '2023-01-01'},
+            {'id': 'B2', 'title': 'Book 2', 'author': 'Author 2', 'published_date': '2023-02-01'},
+            {'id': 'B3', 'title': 'Book 3', 'author': 'Author 3', 'published_date': '2023-03-01'},
+        ]
 
         # checking for the duplication of the book id
         try:

@@ -22,7 +22,7 @@ project
 ```
 
 ### Database structure
-![Database architecture](images\database_image.png)
+![Database architecture](images/database_image.png)
 
 ### Running the Application
 Install Flask:
@@ -59,7 +59,7 @@ PUT /api/books/<string:id>
     |- Updating the book details in the database with validity of the property (Checking primary key) [✓]
 
 GET /seed
-    |- Assumption: The payload structure will be followed
+    |- Assumption: The payload structure will be followed and there will not be any duplicate ID of the books
     |- Checking for the duplication of the book id
     |- Error handling for database connection issues
 ```
